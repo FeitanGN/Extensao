@@ -1,0 +1,216 @@
+<GerenciadorTelas>:
+    Menu:
+        name: "menu"
+    Config:
+        name: "config"
+    Orcamento:
+        name: "orcamento"
+    Precos:
+        name: "precos"
+<Menu>:
+    canvas:
+        Color:
+            rgba: 0, 0, 0, 0
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            orientation: "vertical"
+            spacing: 10
+            padding: 40
+            Image:
+                source: "Logo.png"
+            Label:
+                text: "Orçamentos"
+                font_size: 30
+                bold: True
+        BoxLayout:
+            orientation: "vertical"
+            spacing: 30
+            padding: 50
+            size_hint_y: 1
+            BotaoMenu:
+                text: "Orçar"
+                font_size: 20
+                bold: True
+                on_release: app.root.current = 'orcamento'
+            BotaoMenu:
+                text: "Preços Atuais"
+                font_size: 20
+                bold: True
+                on_release: app.root.current = 'precos'
+            BotaoMenu:
+                text: "Configurações"
+                font_size: 20
+                bold: True
+                on_release: app.root.current = 'config'
+<Config>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: 40
+        spacing: 10
+        Label:
+            text: 'Preço do PET 0.3'
+            bold: True
+            font_size: 20
+        TextInput:
+            id: kgpet03
+            hint_text: 'Preço do PET 0.3'
+        Label:
+            text: 'Preço do PET 0.6'
+            bold: True
+            font_size: 20
+        TextInput:
+            id: kgpet06
+            hint_text: 'Preço do PET 0.6'
+        Label:
+            text: 'Taxa Base'
+            bold: True
+            font_size: 20
+        TextInput:
+            id: taxa
+            hint_text: 'Taxa Padrão'
+        Label:
+            text: 'Adicional da Laminação'
+            bold: True
+            font_size: 20
+        TextInput:
+            id: comlaminacao
+            hint_text: 'Preço com Laminação'
+        Label:
+            text: 'Fator Multiplicador'
+            bold: True
+            font_size: 20
+        TextInput:
+            id: fator
+            hint_text: 'Fator multiplicador'
+        BoxLayout:
+            BotaoMenu:
+                padding: 50
+                spacing: 30
+                text: "Salvar"
+                font_size: 20
+                bold: True
+                on_press: root.config()
+                on_release: app.root.current = 'menu'
+        BoxLayout:
+            BotaoMenu:
+                padding: 50
+                spacing: 30
+                text: "Voltar"
+                font_size: 20
+                bold: True
+                on_release: app.root.current = 'menu'
+<Orcamento>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: 40
+        spacing: 20
+        Spinner:
+            id: material_spinner
+            text: 'Selecione o Material'
+            values: 'PET', 'PET'
+        Spinner:
+            id: espessura_spinner
+            text: 'Selecione a Espessura'
+            values: '0.3', '0.6'
+        Spinner:
+            id: laminacao_spinner
+            text: 'Opção Laminação'
+            values: 'Sim', 'Não'
+        TextInput:
+            id: largura_input
+            hint_text: 'Largura (cm)'
+            multiline: False
+            input_filter: 'float'
+        TextInput:
+            id: comprimento_input
+            hint_text: 'Comprimento (cm)'
+            multiline: False
+            input_filter: 'float'
+        TextInput:
+            id: quantidade_input
+            hint_text: 'Quantidade'
+            multiline: False
+            input_filter: 'int'
+        BoxLayout:
+            orientation: "vertical"
+            spacing: 20
+            size_hint_y: 2
+            BotaoMenu:
+                text: 'Gerar Orçamento'
+                bold: True
+                font_size: 20
+                on_press: root.gerar_orcamento()
+            BotaoMenu:
+                text: 'Voltar'
+                bold: True
+                font_size: 20
+                on_release: app.root.current = 'menu'
+        Label:
+            id: result_label
+            text: ''
+
+<Precos>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: 40
+        spacing: 10
+        Label:
+            text: "Preço do PET 0.3"
+            bold: True
+        Label:
+            id: display_pet03
+            text: ''
+        Label:
+            text: 'Preço do PET 0.6'
+            bold: True
+        Label:
+            id: display_pet06
+            text: ''
+        Label:
+            text: 'Taxa Base'
+            bold: True
+        Label:
+            id: display_taxa
+            text: ''
+        Label:
+            text: 'Adicional da Laminação'
+            bold: True
+        Label:
+            id: display_comlaminacao
+            text: ''
+        Label:
+            text: 'Fator Multiplicador'
+            bold: True
+        Label:
+            id: display_fator
+            text: ''
+        BoxLayout:
+            orientation: "vertical"
+            spacing: 20
+            size_hint_y: 3
+            BotaoMenu:
+                padding: 50
+                spacing: 30
+                text: "Atualizar"
+                font_size: 20
+                bold: True
+                on_press: root.atualizar()
+            BotaoMenu:
+                text: "Voltar"
+                font_size: 20
+                bold: True
+                on_release: app.root.current = 'menu'
+<BotaoMenu@ButtonBehavior+Label>:
+    canvas.before:
+        Color:
+            rgba: 1, 0.8, 0.1, 0.6
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [20]
+
+
